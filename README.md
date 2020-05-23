@@ -61,3 +61,11 @@ Run the pytest tests like this:
 ```bash
 pytest
 ```
+
+To recreate the Docker container
+--------------------------------
+
+```bash
+docker build --tag publiclaw/oregon-oar .
+docker push publiclaw/oregon-oar
+```

@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
+import sys
+from typing import final
 
 # Scrapy settings for oar project
 #
@@ -34,7 +36,7 @@ ROBOTSTXT_OBEY = True
 DOWNLOAD_DELAY = 0.5
 
 #
-# Crawlera Best Practices. Current Plan is "C50".
+# Crawlera Best Practices.
 #
 
 DOWNLOAD_TIMEOUT = 600
@@ -43,7 +45,7 @@ DOWNLOAD_TIMEOUT = 600
 CONCURRENT_REQUESTS = 5
 
 # The download delay setting will honor only one of:
-CONCURRENT_REQUESTS_PER_DOMAIN = 3
+CONCURRENT_REQUESTS_PER_DOMAIN = 5
 
 # CONCURRENT_REQUESTS_PER_IP = 16
 
@@ -77,9 +79,11 @@ DOWNLOADER_MIDDLEWARES = {
 
 CRAWLERA_ENABLED = True
 
-# This breaks on Scraping Hub although it works locally. Commenting it out
-# for now.
-# CRAWLERA_APIKEY = os.environ['CRAWLERA_APIKEY']
+# This breaks on Scraping Hub although it works locally. So check for the env
+# var. Set the CRAWLERA_ENV constant only if there's an env var.
+CRAWLERA_ENV = os.environ.get('CRAWLERA_APIKEY')
+if CRAWLERA_ENV:
+    CRAWLERA_APIKEY = CRAWLERA_ENV
 
 # Enable or disable extensions
 # See https://doc.scrapy.org/en/latest/topics/extensions.html
@@ -100,7 +104,7 @@ AUTOTHROTTLE_START_DELAY = 1
 AUTOTHROTTLE_MAX_DELAY = 10
 # The average number of requests Scrapy should be sending in parallel to
 # each remote server
-AUTOTHROTTLE_TARGET_CONCURRENCY = 3.0
+AUTOTHROTTLE_TARGET_CONCURRENCY = 5.0
 # Enable showing throttling stats for every response received:
 AUTOTHROTTLE_DEBUG = False
 
